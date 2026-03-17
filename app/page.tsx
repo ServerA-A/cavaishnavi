@@ -101,16 +101,19 @@ const CERTIFICATES = [
       "Build Generative AI Apps and Solutions with No-Code Tools",
     org: "Infosys",
     date: "Aug 2025",
+    image: "/1-3df31122-8f72-40ba-9b61-5caf9a15fcf5 (1)_page-0001.jpg",
   },
   {
     title: "Master Generative AI & Generative AI Tools",
     org: "Infosys",
     date: "Aug 2025",
+    image: "/UC-b596855c-c35a-4c77-8ddc-727c5174eb69_page-0001.jpg",
   },
   {
     title: "AI & ML for Real-world Problem Solving",
     org: "LPU",
     date: "Jun 2025",
+    image: "/12318042_851_14_08_2025_page-0001.jpg",
   },
 ];
 
@@ -532,20 +535,31 @@ export default function Home() {
           <h3 className="text-sm font-semibold uppercase tracking-wider text-indigo-400 mb-4">
             Certificates
           </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {CERTIFICATES.map((c) => (
               <div
                 key={c.title}
-                className="glass rounded-xl p-5 card-hover group"
+                className="glass rounded-xl overflow-hidden card-hover group flex flex-col"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <BookOpen className="w-4 h-4 text-indigo-400" />
-                  <span className="text-xs text-slate-400">{c.date}</span>
+                {c.image && (
+                  <div className="relative h-48 w-full overflow-hidden bg-[#0f172a] border-b border-white/5">
+                    <img
+                      src={c.image}
+                      alt={c.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                )}
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="flex items-center gap-2 mb-3">
+                    <BookOpen className="w-4 h-4 text-indigo-400 shrink-0" />
+                    <span className="text-xs text-slate-400">{c.date}</span>
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-2 leading-snug">
+                    {c.title}
+                  </h4>
+                  <p className="text-xs text-slate-400 mt-auto">{c.org}</p>
                 </div>
-                <h4 className="text-sm font-semibold text-white mb-1 leading-snug">
-                  {c.title}
-                </h4>
-                <p className="text-xs text-slate-400">{c.org}</p>
               </div>
             ))}
           </div>
