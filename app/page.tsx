@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ModeToggle } from "./mode-toggle";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Download,
@@ -214,18 +215,18 @@ function SectionHeading({
 }) {
   return (
     <div id={id} className="flex items-center gap-3 mb-8 scroll-mt-24">
-      <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
+      <div className="p-2.5 rounded-xl bg-accent/10 text-accent">
         {icon}
       </div>
       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>
-      <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/40 to-transparent ml-3" />
+      <div className="flex-1 h-px bg-gradient-to-r from-accent/40 to-transparent ml-3" />
     </div>
   );
 }
 
 function SkillBadge({ label }: { label: string }) {
   return (
-    <span className="skill-badge inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 cursor-default">
+    <span className="skill-badge inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-accent/10 text-accent-light border border-accent/20 cursor-default">
       {label}
     </span>
   );
@@ -298,14 +299,14 @@ function PlanetsBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {/* Deep Space Background with subtle gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#0f172a] to-[#0f172a]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent-glow/20 via-background to-background" />
 
       {/* Twinkling Stars */}
       <div className="absolute inset-0">
         {mounted && Array.from({ length: 60 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-white"
+            className="absolute rounded-full bg-foreground"
             style={{
               width: Math.random() * 3 + "px",
               height: Math.random() * 3 + "px",
@@ -370,7 +371,7 @@ function PlanetsBackground() {
             }}
           >
             {/* Inner highlight for glass bubble effect */}
-            <div className="absolute top-[15%] left-[20%] w-[30%] h-[30%] bg-white/30 rounded-full blur-[1px]" />
+            <div className="absolute top-[15%] left-[20%] w-[30%] h-[30%] bg-foreground/30 rounded-full blur-[1px]" />
           </motion.div>
         ))}
       </div>
@@ -422,7 +423,7 @@ function PlanetsBackground() {
         <motion.div
           animate={{ x: [0, -15, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute w-32 h-32 md:w-48 md:h-48 rounded-full opacity-70 mix-blend-screen bg-gradient-to-br from-indigo-400 via-purple-600 to-indigo-950"
+          className="absolute w-32 h-32 md:w-48 md:h-48 rounded-full opacity-70 mix-blend-screen bg-gradient-to-br from-accent via-accent to-accent-glow"
           style={{
             y: y2,
             top: "60%",
@@ -430,8 +431,8 @@ function PlanetsBackground() {
             boxShadow: "inset -15px -15px 30px rgba(0,0,0,0.6), 0 0 40px rgba(79, 70, 229, 0.4)",
           }}
         >
-           <div className="absolute inset-x-0 top-[20%] h-[10%] bg-indigo-300/20 blur-sm transform -skew-y-12" />
-           <div className="absolute inset-x-0 bottom-[30%] h-[15%] bg-purple-400/20 blur-md transform -skew-y-6" />
+           <div className="absolute inset-x-0 top-[20%] h-[10%] bg-accent/10 blur-sm transform -skew-y-12" />
+           <div className="absolute inset-x-0 bottom-[30%] h-[15%] bg-accent-light/20 blur-md transform -skew-y-6" />
         </motion.div>
 
         {/* Floating Planet 3 - Small Glowing Moon (Center Left) */}
@@ -447,8 +448,8 @@ function PlanetsBackground() {
             boxShadow: "inset -5px -5px 15px rgba(0,0,0,0.5), 0 0 20px rgba(96, 165, 250, 0.4)",
           }}
         >
-          <div className="absolute top-[20%] left-[20%] w-4 h-4 bg-[#1e3a8a]/40 rounded-full blur-[1px]" />
-          <div className="absolute bottom-[30%] right-[30%] w-6 h-6 bg-[#1e3a8a]/50 rounded-full blur-[2px]" />
+          <div className="absolute top-[20%] left-[20%] w-4 h-4 bg-accent/40 rounded-full blur-[1px]" />
+          <div className="absolute bottom-[30%] right-[30%] w-6 h-6 bg-accent/50 rounded-full blur-[2px]" />
         </motion.div>
         
         {/* Floating Planet 4 - Distant Orange/Red planet (Center Right) */}
@@ -504,7 +505,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans">
+    <div className="min-h-screen bg-background text-foreground font-sans">
       <PlanetsBackground />
       {/* ─── NAVBAR ─── */}
       <nav className="fixed top-0 inset-x-0 z-50 glass">
@@ -523,7 +524,7 @@ export default function Home() {
                 <a
                   key={l.href}
                   href={l.href}
-                  className="nav-link text-sm text-slate-400 hover:text-indigo-300 transition-colors"
+                  className="nav-link text-sm text-muted hover:text-accent-light transition-colors"
                 >
                   {l.label}
                 </a>
@@ -531,37 +532,41 @@ export default function Home() {
               <a
                 href="/Mock Drive CV_260212_133126.pdf"
                 download
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent hover:bg-accent-light text-background text-sm font-medium transition-colors"
               >
                 <Download className="w-4 h-4" />
                 Download CV
               </a>
+              <ModeToggle />
             </div>
 
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
+            <div className="flex items-center gap-2 md:hidden">
+              <ModeToggle />
+              {/* Mobile menu button */}
+              <button
+                className="p-2 rounded-lg text-muted hover:text-foreground"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Mobile menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden pb-4 border-t border-slate-700/50 mt-1">
+            <div className="md:hidden pb-4 border-t border-border/50 mt-1">
               <div className="flex flex-col gap-1 pt-3">
                 {NAV_LINKS.map((l) => (
                   <a
                     key={l.href}
                     href={l.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2.5 rounded-lg text-sm text-slate-400 hover:bg-indigo-500/10 hover:text-indigo-300 transition-colors"
+                    className="px-3 py-2.5 rounded-lg text-sm text-muted hover:bg-accent/10 hover:text-accent-light transition-colors"
                   >
                     {l.label}
                   </a>
@@ -569,7 +574,7 @@ export default function Home() {
                 <a
                   href="/Mock Drive CV_260212_133126.pdf"
                   download
-                  className="mx-3 mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium transition-colors"
+                  className="mx-3 mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-accent hover:bg-accent-light text-background text-sm font-medium transition-colors"
                 >
                   <Download className="w-4 h-4" />
                   Download CV
@@ -584,9 +589,9 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl animate-float" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-purple-500/10 blur-3xl animate-float delay-300" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/5 blur-3xl" />
+          <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-accent/10 blur-3xl animate-float" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-accent/10 blur-3xl animate-float delay-300" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl" />
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
@@ -594,8 +599,8 @@ export default function Home() {
             {/* Avatar */}
             <div className="animate-fade-in-up mb-8">
               <InteractiveCard>
-                <div className="w-[200px] h-[200px] rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-1 shadow-[0_0_40px_rgba(79,70,229,0.3)] mx-auto">
-                  <div className="w-full h-full rounded-full bg-[#1e293b] overflow-hidden relative">
+                <div className="w-[200px] h-[200px] rounded-full bg-gradient-to-br from-accent to-accent p-1 shadow-[0_0_40px_rgba(79,70,229,0.3)] mx-auto">
+                  <div className="w-full h-full rounded-full bg-card overflow-hidden relative">
                     <img 
                       src="/Abc.jpeg" 
                       alt="Vaishnavi Profile" 
@@ -607,13 +612,13 @@ export default function Home() {
             </div>
 
             {/* Intro */}
-            <p className="animate-fade-in-up delay-100 text-indigo-400 font-medium text-sm tracking-widest uppercase mb-3">
+            <p className="animate-fade-in-up delay-100 text-accent font-medium text-sm tracking-widest uppercase mb-3">
               Hello, I&apos;m
             </p>
             <h1 className="animate-fade-in-up delay-200 text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4">
               <span className="gradient-text">Vaishnavi</span>
             </h1>
-            <p className="animate-fade-in-up delay-300 text-lg sm:text-xl text-slate-400 max-w-2xl leading-relaxed mb-8">
+            <p className="animate-fade-in-up delay-300 text-lg sm:text-xl text-muted max-w-2xl leading-relaxed mb-8">
               Aspiring AI &amp; ML Engineer &bull; B.Tech CSE Student at LPU
               &bull; Passionate about building intelligent systems that solve
               real-world problems
@@ -624,14 +629,14 @@ export default function Home() {
               <a
                 href="/Mock Drive CV_260212_133126.pdf"
                 download
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold transition-all hover:scale-105 shadow-lg shadow-indigo-500/25"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent hover:bg-accent-light text-background font-semibold transition-all hover:scale-105 shadow-lg shadow-accent/25"
               >
                 <Download className="w-5 h-5" />
                 Download CV
               </a>
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-600 hover:border-indigo-400 text-slate-300 hover:text-indigo-300 font-semibold transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent text-foreground/90 hover:text-accent-light font-semibold transition-all hover:scale-105"
               >
                 View Projects
                 <ChevronRight className="w-4 h-4" />
@@ -644,7 +649,7 @@ export default function Home() {
                 href="https://www.linkedin.com/in/vaishnavi79"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-slate-800/80 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400 transition-all hover:scale-110"
+                className="p-3 rounded-full bg-card-hover/80 hover:bg-accent/20 text-muted hover:text-accent transition-all hover:scale-110"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
@@ -653,7 +658,7 @@ export default function Home() {
                 href="https://github.com/VaishnaviSoga09"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-slate-800/80 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-400 transition-all hover:scale-110"
+                className="p-3 rounded-full bg-card-hover/80 hover:bg-accent/20 text-muted hover:text-accent transition-all hover:scale-110"
                 aria-label="GitHub"
               >
                 <Github className="w-5 h-5" />
@@ -664,8 +669,8 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 rounded-full border-2 border-slate-600 flex items-start justify-center pt-2">
-            <div className="w-1.5 h-3 rounded-full bg-indigo-400" />
+          <div className="w-6 h-10 rounded-full border-2 border-border flex items-start justify-center pt-2">
+            <div className="w-1.5 h-3 rounded-full bg-accent" />
           </div>
         </div>
       </section>
@@ -683,7 +688,7 @@ export default function Home() {
           <FadeIn delay={0.1}>
             <InteractiveCard>
               <div className="glass rounded-2xl p-6 sm:p-8 card-hover">
-                <p className="text-slate-300 leading-relaxed text-base sm:text-lg">
+                <p className="text-foreground/90 leading-relaxed text-base sm:text-lg">
                   I am a Computer Science &amp; Engineering student at Lovely
                   Professional University with a strong interest in Artificial
                   Intelligence and Machine Learning. I enjoy working on projects
@@ -692,17 +697,17 @@ export default function Home() {
                   AI-powered detection tools. I&apos;m solution-oriented,
                   collaborative, and always eager to learn and grow.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-400">
+                <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted">
                   <span className="inline-flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-indigo-400" />
+                    <MapPin className="w-4 h-4 text-accent" />
                     Punjab, India
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <GraduationCap className="w-4 h-4 text-indigo-400" />
+                    <GraduationCap className="w-4 h-4 text-accent" />
                     B.Tech CSE — LPU
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-indigo-400" />
+                    <Mail className="w-4 h-4 text-accent" />
                     Available for Opportunities
                   </span>
                 </div>
@@ -713,7 +718,7 @@ export default function Home() {
       </section>
 
       {/* ─── SKILLS ─── */}
-      <section className="py-20 sm:py-28 bg-[#0b1120]">
+      <section className="py-20 sm:py-28 bg-card">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <SectionHeading
@@ -727,7 +732,7 @@ export default function Home() {
               <FadeIn key={category} delay={index * 0.1}>
                 <InteractiveCard className="h-full">
                   <div className="glass rounded-2xl p-6 card-hover h-full flex flex-col justify-between hidden-backdrop">
-                    <h3 className="text-sm font-semibold uppercase tracking-wider text-indigo-400 mb-4">
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-accent mb-4">
                       {category}
                     </h3>
                     <div className="flex flex-wrap gap-2.5">
@@ -756,9 +761,9 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-6 items-stretch">
             {PROJECTS.map((p, index) => (
               <FadeIn key={p.title} delay={index * 0.1} className="flex">
-                <div className="glass rounded-xl p-0 card-hover flex flex-col w-full h-full border border-indigo-500/20 shadow-lg relative overflow-hidden group">
+                <div className="glass rounded-xl p-0 card-hover flex flex-col w-full h-full border border-accent/20 shadow-lg relative overflow-hidden group">
                   {p.image && (
-                    <div className="w-full h-48 sm:h-56 relative overflow-hidden bg-[#0f172a] border-b border-indigo-500/20">
+                    <div className="w-full h-48 sm:h-56 relative overflow-hidden bg-background border-b border-accent/20">
                       <img 
                         src={p.image} 
                         alt={p.title} 
@@ -770,11 +775,11 @@ export default function Home() {
                   <div className="p-6 sm:p-8 flex flex-col flex-1">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
                       <div className="flex items-start gap-3">
-                        <div className="mt-0.5 p-2 rounded-lg bg-indigo-500/20 text-indigo-300 shrink-0 border border-indigo-500/30">
+                        <div className="mt-0.5 p-2 rounded-lg bg-accent/20 text-accent-light shrink-0 border border-accent/30">
                           {p.icon}
                         </div>
                         <div>
-                          <h3 className="text-lg lg:text-xl font-bold text-white leading-snug drop-shadow-md">
+                          <h3 className="text-lg lg:text-xl font-bold text-foreground leading-snug drop-shadow-md">
                             {p.title}
                           </h3>
                         </div>
@@ -786,9 +791,9 @@ export default function Home() {
                         {p.points.slice(0, 3).map((pt, i) => (
                           <li
                             key={i}
-                            className="flex items-start gap-2 text-sm text-slate-300"
+                            className="flex items-start gap-2 text-sm text-foreground/90"
                           >
-                            <ChevronRight className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" />
+                            <ChevronRight className="w-4 h-4 text-accent mt-0.5 shrink-0" />
                             <span>{pt}</span>
                           </li>
                         ))}
@@ -801,18 +806,18 @@ export default function Home() {
                           href={p.link} 
                           target="_blank" 
                           rel="noreferrer" 
-                          className="inline-flex items-center gap-1.5 text-sm font-semibold bg-indigo-500 hover:bg-indigo-400 text-white px-4 py-2 rounded-lg transition-colors mb-5 w-fit"
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold bg-accent hover:bg-accent text-background px-4 py-2 rounded-lg transition-colors mb-5 w-fit"
                         >
                           <Github className="w-4 h-4" />
                           View Source
                         </a>
                       )}
                       
-                      <div className="flex flex-wrap gap-2 pt-5 border-t border-indigo-500/20">
+                      <div className="flex flex-wrap gap-2 pt-5 border-t border-accent/20">
                         {p.tech.map((t) => (
                           <span
                             key={t}
-                            className="px-2.5 py-1 rounded-md text-xs font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20"
+                            className="px-2.5 py-1 rounded-md text-xs font-medium bg-accent/10 text-accent-light border border-accent/20"
                           >
                             {t}
                           </span>
@@ -828,7 +833,7 @@ export default function Home() {
       </section>
 
       {/* ─── EXPERIENCE / INTERNSHIP ─── */}
-      <section className="py-20 sm:py-28 bg-[#0b1120]">
+      <section className="py-20 sm:py-28 bg-card">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <SectionHeading
@@ -841,18 +846,18 @@ export default function Home() {
             <InteractiveCard>
               <div className="glass rounded-2xl p-6 sm:p-8 card-hover relative overflow-hidden">
                 {/* Timeline line */}
-                <div className="absolute left-8 sm:left-10 top-20 bottom-8 w-px bg-gradient-to-b from-indigo-500/50 to-transparent hidden sm:block" />
+                <div className="absolute left-8 sm:left-10 top-20 bottom-8 w-px bg-gradient-to-b from-accent/50 to-transparent hidden sm:block" />
 
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-5">
                   <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-white">
+                    <h3 className="text-lg sm:text-xl font-semibold text-foreground">
                       Summer Training Program
                     </h3>
-                    <p className="text-indigo-400 text-sm font-medium mt-1">
+                    <p className="text-accent text-sm font-medium mt-1">
                       AI &amp; ML for Real-world Problem Solving — LPU
                     </p>
                   </div>
-                  <span className="text-sm text-slate-400 shrink-0">
+                  <span className="text-sm text-muted shrink-0">
                     July 2025
                   </span>
                 </div>
@@ -864,9 +869,9 @@ export default function Home() {
                   ].map((pt, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-sm sm:text-base text-slate-300"
+                      className="flex items-start gap-2 text-sm sm:text-base text-foreground/90"
                     >
-                      <ChevronRight className="w-4 h-4 text-indigo-400 mt-1 shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0" />
                       <span>{pt}</span>
                     </li>
                   ))}
@@ -875,7 +880,7 @@ export default function Home() {
                   {["OpenCV", "Scikit-learn", "SVM", "Matplotlib"].map((t) => (
                     <span
                       key={t}
-                      className="px-3 py-1 rounded-md text-xs font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20"
+                      className="px-3 py-1 rounded-md text-xs font-medium bg-accent/10 text-accent-light border border-accent/20"
                     >
                       {t}
                     </span>
@@ -900,7 +905,7 @@ export default function Home() {
 
           {/* Certificates */}
           <FadeIn delay={0.1}>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-indigo-400 mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent mb-4">
               Certificates
             </h3>
           </FadeIn>
@@ -910,7 +915,7 @@ export default function Home() {
                 <InteractiveCard className="h-full">
                   <div className="glass rounded-xl overflow-hidden card-hover group flex flex-col h-full hidden-backdrop">
                     {c.image ? (
-                      <div className="relative h-48 w-full overflow-hidden bg-[#0f172a] border-b border-white/5">
+                      <div className="relative h-48 w-full overflow-hidden bg-background border-b border-border/50">
                         <img
                           src={c.image}
                           alt={c.title}
@@ -918,19 +923,19 @@ export default function Home() {
                         />
                       </div>
                     ) : (
-                      <div className="relative h-48 w-full overflow-hidden bg-[#0f172a] border-b border-white/5 flex items-center justify-center">
-                        <FileText className="w-12 h-12 text-slate-600 transition-transform duration-500 group-hover:scale-110" />
+                      <div className="relative h-48 w-full overflow-hidden bg-background border-b border-border/5 flex items-center justify-center">
+                        <FileText className="w-12 h-12 text-muted transition-transform duration-500 group-hover:scale-110" />
                       </div>
                     )}
                     <div className="p-5 flex-1 flex flex-col">
                       <div className="flex items-center gap-2 mb-3">
-                        <BookOpen className="w-4 h-4 text-indigo-400 shrink-0" />
-                        <span className="text-xs text-slate-400">{c.date}</span>
+                        <BookOpen className="w-4 h-4 text-accent shrink-0" />
+                        <span className="text-xs text-muted">{c.date}</span>
                       </div>
-                      <h4 className="text-sm font-semibold text-white mb-2 leading-snug">
+                      <h4 className="text-sm font-semibold text-foreground mb-2 leading-snug">
                         {c.title}
                       </h4>
-                      <p className="text-xs text-slate-400 mt-auto">{c.org}</p>
+                      <p className="text-xs text-muted mt-auto">{c.org}</p>
                     </div>
                   </div>
                 </InteractiveCard>
@@ -948,7 +953,7 @@ export default function Home() {
 
           {/* Achievements */}
           <FadeIn delay={0.2}>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-indigo-400 mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent mb-4">
               Achievements
             </h3>
           </FadeIn>
@@ -959,10 +964,10 @@ export default function Home() {
                   <div className="glass rounded-xl p-5 card-hover flex items-start gap-3 h-full hidden-backdrop">
                     <Trophy className="w-5 h-5 text-amber-400 mt-0.5 shrink-0" />
                     <div>
-                      <h4 className="text-sm font-semibold text-white leading-snug">
+                      <h4 className="text-sm font-semibold text-foreground leading-snug">
                         {a.title}
                       </h4>
-                      <p className="text-xs text-slate-400 mt-1">{a.date}</p>
+                      <p className="text-xs text-muted mt-1">{a.date}</p>
                     </div>
                   </div>
                 </InteractiveCard>
@@ -973,7 +978,7 @@ export default function Home() {
       </section>
 
       {/* ─── EDUCATION ─── */}
-      <section className="py-20 sm:py-28 bg-[#0b1120]">
+      <section className="py-20 sm:py-28 bg-card">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <SectionHeading
@@ -989,22 +994,22 @@ export default function Home() {
                   <div className="glass rounded-2xl p-6 sm:p-8 card-hover hidden-backdrop">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                       <div>
-                        <h3 className="text-lg font-semibold text-white">
+                        <h3 className="text-lg font-semibold text-foreground">
                           {e.institution}
                         </h3>
-                        <p className="text-sm text-slate-400 flex items-center gap-1.5 mt-0.5">
+                        <p className="text-sm text-muted flex items-center gap-1.5 mt-0.5">
                           <MapPin className="w-3.5 h-3.5" />
                           {e.location}
                         </p>
                       </div>
-                      <span className="text-sm text-slate-400 shrink-0">
+                      <span className="text-sm text-muted shrink-0">
                         {e.period}
                       </span>
                     </div>
-                    <p className="text-slate-300 text-sm sm:text-base">
+                    <p className="text-foreground/90 text-sm sm:text-base">
                       {e.degree}
                     </p>
-                    <p className="text-indigo-400 text-sm font-semibold mt-1">
+                    <p className="text-accent text-sm font-semibold mt-1">
                       {e.result}
                     </p>
                   </div>
@@ -1018,7 +1023,7 @@ export default function Home() {
       {/* ─── CTA / CONNECT & MESSAGE ─── */}
       <section className="py-20 sm:py-28 relative">
         {/* Subtle background glow for CTA section */}
-        <div className="absolute inset-0 bg-indigo-900/5 blur-[100px] pointer-events-none" />
+        <div className="absolute inset-0 bg-accent-glow/5 blur-[100px] pointer-events-none" />
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -1029,7 +1034,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                   Let&apos;s <span className="gradient-text">Connect</span>
                 </h2>
-                <p className="text-slate-400 max-w-md mx-auto md:mx-0 mb-8">
+                <p className="text-muted max-w-md mx-auto md:mx-0 mb-8">
                   I&apos;m always open to discussing new opportunities, interesting
                   projects, or just a friendly chat about tech.
                 </p>
@@ -1040,7 +1045,7 @@ export default function Home() {
                     href="https://www.linkedin.com/in/vaishnavi79"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold transition-all hover:-translate-y-1 shadow-lg shadow-indigo-500/25"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent hover:bg-accent-light text-background font-semibold transition-all hover:-translate-y-1 shadow-lg shadow-accent/25"
                   >
                     <Linkedin className="w-5 h-5" />
                     LinkedIn
@@ -1049,7 +1054,7 @@ export default function Home() {
                     href="https://github.com/VaishnaviSoga09"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-600 hover:border-indigo-400 text-slate-300 hover:text-indigo-300 font-semibold transition-all hover:-translate-y-1"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent text-foreground/90 hover:text-accent-light font-semibold transition-all hover:-translate-y-1"
                   >
                     <Github className="w-5 h-5" />
                     GitHub
@@ -1057,7 +1062,7 @@ export default function Home() {
                   <a
                     href="/Mock Drive CV_260212_133126.pdf"
                     download
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-600 hover:border-indigo-400 text-slate-300 hover:text-indigo-300 font-semibold transition-all hover:-translate-y-1"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent text-foreground/90 hover:text-accent-light font-semibold transition-all hover:-translate-y-1"
                   >
                     <Download className="w-5 h-5" />
                     Download CV
@@ -1068,44 +1073,44 @@ export default function Home() {
 
             {/* Right side contact form */}
             <FadeIn delay={0.3}>
-              <div className="glass rounded-none p-6 sm:p-8 relative overflow-hidden border border-indigo-500/20 shadow-lg max-w-md mx-auto md:mx-0 w-full">
-                <div className="absolute inset-0 bg-indigo-500/5 z-0" />
+              <div className="glass rounded-none p-6 sm:p-8 relative overflow-hidden border border-accent/20 shadow-lg max-w-md mx-auto md:mx-0 w-full">
+                <div className="absolute inset-0 bg-accent/5 z-0" />
                 <div className="relative z-10">
-                  <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-                    <Mail className="w-5 h-5 text-indigo-400" />
+                  <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
+                    <Mail className="w-5 h-5 text-accent" />
                     Send a Message
                   </h3>
                   <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-slate-400 mb-1.5">Name</label>
+                      <label htmlFor="name" className="block text-sm font-medium text-muted mb-1.5">Name</label>
                       <input 
                         type="text" 
                         id="name" 
                         placeholder="John Doe"
-                        className="w-full bg-slate-900/50 border border-slate-700/50 rounded-none px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                        className="w-full bg-background/50 border border-border/50 rounded-none px-4 py-2.5 text-foreground placeholder-muted focus:outline-none focus:ring-1 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-400 mb-1.5">Email</label>
+                      <label htmlFor="email" className="block text-sm font-medium text-muted mb-1.5">Email</label>
                       <input 
                         type="email" 
                         id="email" 
                         placeholder="john@example.com"
-                        className="w-full bg-slate-900/50 border border-slate-700/50 rounded-none px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                        className="w-full bg-background/50 border border-border/50 rounded-none px-4 py-2.5 text-foreground placeholder-muted focus:outline-none focus:ring-1 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm"
                       />
                     </div>
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-1.5">Message</label>
+                      <label htmlFor="message" className="block text-sm font-medium text-muted mb-1.5">Message</label>
                       <textarea 
                         id="message" 
                         rows={3}
                         placeholder="Hi Vaishnavi..."
-                        className="w-full bg-slate-900/50 border border-slate-700/50 rounded-none px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all resize-none text-sm"
+                        className="w-full bg-background/50 border border-border/50 rounded-none px-4 py-2.5 text-foreground placeholder-muted focus:outline-none focus:ring-1 focus:ring-accent/50 focus:border-accent/50 transition-all resize-none text-sm"
                       />
                     </div>
                     <button 
                       type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-none bg-indigo-500 hover:bg-indigo-400 text-white font-semibold transition-colors shadow-lg shadow-indigo-500/10 text-sm"
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-none bg-accent hover:bg-accent text-background font-semibold transition-colors shadow-lg shadow-accent/10 text-sm"
                     >
                       Send Message
                       <ChevronRight className="w-4 h-4" />
@@ -1120,15 +1125,15 @@ export default function Home() {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-slate-800 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+      <footer className="border-t border-border py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
           <p>&copy; {new Date().getFullYear()} Vaishnavi. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <a
               href="https://www.linkedin.com/in/vaishnavi79"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-indigo-400 transition-colors"
+              className="hover:text-accent transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-4 h-4" />
@@ -1137,7 +1142,7 @@ export default function Home() {
               href="https://github.com/VaishnaviSoga09"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-indigo-400 transition-colors"
+              className="hover:text-accent transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-4 h-4" />
